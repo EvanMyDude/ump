@@ -1,0 +1,64 @@
+:root {
+  --bg: #0b1220;
+  --fg: #f4f6fb;
+  --muted: #a8b3c7;
+  --accent: #ffcc33;
+  --good: #34d399;
+  --bad: #f87171;
+  --warn: #fbbf24;
+  --panel: rgba(8, 12, 22, 0.74);
+  --panel-strong: rgba(8, 12, 22, 0.9);
+  --panel-border: rgba(255, 255, 255, 0.14);
+  --zone: #ffffff;
+  --font-display: 'Bungee', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+
+/* The game always renders on a dark stage; both schemes keep HUD contrast high. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0b1220;
+    --fg: #f4f6fb;
+    --panel: rgba(8, 12, 22, 0.74);
+  }
+}
+:root[data-theme='dark'] {
+  --bg: #0b1220;
+  --fg: #f4f6fb;
+  --panel: rgba(8, 12, 22, 0.74);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+}
+
+#scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
