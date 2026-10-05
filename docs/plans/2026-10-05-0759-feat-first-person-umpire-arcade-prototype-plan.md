@@ -312,7 +312,7 @@ flowchart TB
 Flight from release to the front of the plate takes about 395 ms, and the ball covers about 2.1 ft per 60 Hz frame near the plate (1.1 ft at 120 Hz). Three consequences shape the design:
 
 - Frame sampling cannot locate the crossing; it is solved in closed form (KTD3) and drawn as a streak through the crossing (KTD10).
-- Over the plate the ball jumps two to three of its own widths per 60 Hz frame. Bahill and LaRitz's 1984 study of batters put the ceiling of smooth eye tracking near 70 degrees per second, a speed this ball passes about seven feet before the plate, so nobody follows it continuously across the zone. The difficulty is authentic, not artificial: the player, like a real umpire, must read the path before the plate and the catch after it.
+- Over the plate the ball jumps two to three of its own widths per 60 Hz frame. Smooth eye tracking tops out around 70 to 100 degrees per second by the estimates in Bahill and LaRitz's 1984 study of batters and SABR's review of it, and from the slot this ball passes those speeds five to seven feet before the plate, so nobody follows it continuously across the zone. The difficulty is authentic, not artificial: the player, like a real umpire, must read the path before the plate and the catch after it.
 - An effective strike zone is 19.9 in wide once the ball's radius counts on both edges, which the ABS-style zone (KTD4) applies on every edge.
 
 ### Assumptions
@@ -722,7 +722,7 @@ The knuckleball's flutter is not a constant acceleration, so U3 models it as the
 | 2-2 | 0.349 | 0.339 | 0.295 | 0.32 | 4.2 |
 | 3-2 | 0.620 | 0.590 | 0.528 | 0.63 | 7.6 |
 
-A 3-2 call is worth seven to eight times a 0-0 call, which is the stake curve KTD8 rewards. Tango's RE288 also varies by base-out state (a 3-0 count is worth anywhere from 0.08 to 0.62 runs over 0-0), so a later pass can swap the count-only weights for full base-out-count values without changing the scoring interface.
+A 3-2 call is worth seven to eight times a 0-0 call, which is the stake curve KTD8 rewards. These tables come from 2007 to 2014 data plus Tango's undated 2018 chart; no 2023 to 2026 per-count table was found, so U12 recomputes the weights from current data if their shape matters. Tango's RE288 also varies by base-out state (a 3-0 count is worth anywhere from 0.08 to 0.62 runs over 0-0), so a later pass can swap the count-only weights for full base-out-count values without changing the scoring interface.
 
 **Umpire Scorecards definitions** (used by the Ump Card, U15).
 
@@ -750,11 +750,11 @@ The site predicted its 2026 method change alone would cost one to two points, so
 
 - Work the slot between catcher and batter with the nose on or just inside the inside corner and the chin no lower than the top of the catcher's helmet; a head set too low lets the catcher's helmet hide the outside corner.
 - Lock into the same stance height every pitch and be set before the pitcher releases; fatigue lowers the stance late in games and shifts the zone.
-- Keep the head still and track with the eyes from release into the glove; pro schools drill this with pitching machines and foam balls.
+- Keep the head still and track with the eyes from release into the glove; pro schools drill this with pitching machines and foam balls. In an eye-tracking study, expert plate umpires settled their gaze on the release point earlier and held it longer than novices.
 - Wait before calling: good umpires take about 0.75 to 1.15 seconds after the ball hits the glove, and many misses come from deciding before the catch. Take the same time on obvious pitches so hesitation never signals doubt.
 - Low-outside is the hardest location from the slot (some coaches say up-and-away), and breaking balls that look perfect fifteen feet out are the classic trap.
 - Strikes are called *up* with a hammer signal; balls get a voice and no signal.
-- Human zones drift with the count: in 2014 data the called zone shrank by roughly 120 square inches from 3-0 to 0-2 (SABR, Umpire Analytics). A geometric truth never drifts, so the Ump Card can show a player's own count drift.
+- Human zones drift with the count: in 2014 data the called zone shrank by roughly 120 square inches from 3-0 to 0-2 (SABR, Umpire Analytics), and Green and Daniels found borderline pitches called strikes 58 percent of the time with three balls but 31 percent with two strikes. A geometric truth never drifts, so the Ump Card can show a player's own count drift.
 
 Amateur coaching also tells umpires to read the catcher's glove when they lose a pitch; UMP never encodes that as truth, and it is exactly what framing exploits.
 
@@ -772,11 +772,13 @@ Professional umpires are uncertain across a band about three inches wide on each
 **Will it train real umpires?** The evidence from other sports is encouraging but bounded.
 
 - A 2025 meta-analysis of decision-making training for team-sport officials (14 studies) found a moderate overall effect (g = 0.68), the largest gains for objective decisions such as offside (g = 1.48), and smaller gains for calls that need interpretation. Ball-strike location calls sit near the objective end.
-- A 2024 meta-analysis of perceptual-cognitive training for athletes found transfer to real games about half the size of lab gains (0.65 versus 1.51), and far larger for 3D or VR presentation (0.96) than for computer video (0.19).
+- A 2024 meta-analysis of perceptual-cognitive training for athletes found transfer to real games about half the size of lab gains (0.65 versus 1.51), and far larger for 3D or VR presentation (0.96) than for computer video (0.19). A 2024 study of softball umpires, though, found VR no more accurate than broadcast video, only more realistic.
+- In offside training with feedback after every clip, computer animation improved accuracy as much as video did, which supports an animated game that grades every pitch.
 - A randomized video-training study of Australian football umpires improved decisions, most for less experienced umpires; a 2021 study found that video and 360-degree tests did not predict elite umpires' in-game accuracy and stressed first-person, representative task design.
-- A 2026 scoping review calls immersive official training a field in its infancy and lists no baseball-umpire efficacy study.
+- Across 3 million MLB pitches from 2008 to 2015, monitoring and feedback raised umpire accuracy while count and sequence biases persisted, and younger umpires improved faster.
+- A 2026 scoping review calls immersive official training a field in its infancy, and no controlled study of video or VR training for ball-strike calls was found.
 
-For UMP this means measuring learning in game only (SC2, SC3), keeping the view representative (true scale, the slot, a catcher, a batter), expecting the biggest gains for amateur umpires, and treating the deferred WebXR mode as the stronger training path.
+For UMP this means measuring learning in game only (SC2, SC3), keeping the view representative (true scale, the slot, a catcher, a batter), expecting the biggest gains for less experienced umpires, and treating the deferred WebXR mode as a promising but unproven training path.
 
 ### D. Design References
 
@@ -900,6 +902,12 @@ These notes explain R24 and KD6; they are research, not legal advice, and a lawy
 - Larkin and others, video-based training for Australian football umpires (2018): https://pubmed.ncbi.nlm.nih.gov/28282740/
 - Kittel and others, transfer of 360-degree VR and broadcast-video tests to on-field decisions (2021): https://pubmed.ncbi.nlm.nih.gov/35073238/
 - Immersive technology for sport official training, scoping review (2026): https://pubmed.ncbi.nlm.nih.gov/42443730/
+- Softball umpires in VR versus broadcast video (Frontiers in Virtual Reality, 2024): https://www.frontiersin.org/journals/virtual-reality/articles/10.3389/frvir.2024.1368648/full
+- Offside training with video versus computer animation: https://pubmed.ncbi.nlm.nih.gov/21282841/
+- MLB umpire accuracy and bias under monitoring, 2008 to 2015: https://pmc.ncbi.nlm.nih.gov/articles/PMC10834529/
+- Gaze behavior of expert plate umpires: https://pubmed.ncbi.nlm.nih.gov/23829135/
+- SABR, Do Baseball Batters Keep Their Eye on the Ball?: https://sabr.org/journal/article/do-baseball-batters-keep-their-eye-on-the-ball/
+- Green and Daniels, count effects on called strikes: https://homepage.divms.uiowa.edu/~dzimmer/sports-statistics/greenanddaniels.pdf
 
 **Games and market**
 
