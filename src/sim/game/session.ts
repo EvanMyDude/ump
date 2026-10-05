@@ -1,6 +1,6 @@
 import { BATTERS, PITCHERS } from '../../data/roster';
 import { CHALLENGES, SCORING } from '../../data/scoring';
-import { CATCH_Y, SESSION, TIMING } from '../../data/tuning';
+import { CATCH_Y, DRILL, SESSION, TIMING } from '../../data/tuning';
 import { type PitcherProfile, type ThrownPitch, throwPitch } from '../actors/pitcher';
 import { type DeliveryPlan, planDelivery } from '../actors/pitcherMotion';
 import { type TimingGrade, gradeTiming } from '../call/timing';
@@ -21,6 +21,8 @@ import { type CallKind, type PlateOutcome, applyBalk, applyCall, putRunnerOnFirs
 import { type Bases, type GameState, type Half, countKey, initialGameState, runnersOn } from './state';
 
 export type Intent = 'strike' | 'ball' | 'balk' | 'next';
+/** 'game' is the M1 session; 'balkDrill' is U8's blind spot-the-balk test. */
+export type SessionMode = 'game' | 'balkDrill';
 export type FlowPhase =
   'ready' | 'prepitch' | 'delivery' | 'flight' | 'call' | 'challenge' | 'result' | 'done';
 
@@ -69,7 +71,8 @@ export interface PitchRecord {
   challenge: ChallengeResult | null;
   /** The call that counts after any challenge. */
   finalCall: CallKind | null;
-  outcome: PlateOutcome | 'balk' | null;
+  /** 'noCall' is a balk-drill delivery the player let go without a BALK call. */
+  outcome: PlateOutcome | 'balk' | 'noCall' | null;
   correct: boolean | null;
   scoreLines: ScoreLine[];
   scoreDelta: number;
@@ -91,9 +94,8 @@ export interface SessionOptions {
   readonly pitches?: number;
   readonly movementScale?: number;
   readonly zoneModel?: ZoneModel;
+  readonly mode?: SessionMode;
 }
-
-const CHALLENGE_SHOW_S = 2.2;
 
 /**
  * One M1 session: a run of pitches with calls, balks, and challenges (F1, F2). Deterministic for a given
@@ -101,6 +103,7 @@ const CHALLENGE_SHOW_S = 2.2;
  */
 export class Session {
   readonly seed: string;
+  readonly mode: SessionMode;
   readonly pitchesTotal: number;
   private readonly rng: Rng;
   private readonly zoneModel: ZoneModel;
@@ -121,7 +124,9 @@ export class Session {
 
   constructor(options: SessionOptions) {
     this.seed = options.seed;
-    this.pitchesTotal = options.pitches ?? SESSION.pitchesPerSession;
+    this.mode = options.mode ?? 'game';
+    this.pitchesTotal =
+      options.pitches ?? (this.mode === 'balkDrill' ? DRILL.deliveries : SESSION.pitchesPerSession);
     this.rng = createRng(options.seed);
     this.zoneModel = options.zoneModel ?? absZone;
     this.movementScale = options.movementScale ?? 1;
@@ -171,8 +176,17 @@ export class Session {
   private beginPitch(time: number): void {
     const index = this.records.length;
     const prng = this.rng.fork(`pitch:${index}`);
+    const drill = this.mode === 'balkDrill';
 
-    if (this.state.plateAppearances !== this.lastPlateAppearance) {
+    if (drill) {
+      // Every drill delivery comes from the stretch with a runner on first and a fresh count.
+      this.state = {
+        ...this.state,
+        balls: 0,
+        strikes: 0,
+        bases: { first: true, second: false, third: false },
+      };
+    } else if (this.state.plateAppearances !== this.lastPlateAppearance) {
       this.lastPlateAppearance = this.state.plateAppearances;
       const pa = this.rng.fork(`pa:${this.state.plateAppearances}`);
       if (!this.state.bases.first && pa.chance(SESSION.runnerOnFirstChance))
@@ -180,9 +194,10 @@ export class Session {
     }
 
     const s = this.state;
-    const batter = BATTERS[s.plateAppearances % BATTERS.length]!;
     const halfIndex = (s.inning - 1) * 2 + (s.half === 'top' ? 0 : 1);
-    const pitcher = PITCHERS[halfIndex % PITCHERS.length]!;
+    // The drill rotates batters and pitchers every delivery so set lengths and arm sides vary.
+    const batter = BATTERS[(drill ? index : s.plateAppearances) % BATTERS.length]!;
+    const pitcher = PITCHERS[(drill ? index : halfIndex) % PITCHERS.length]!;
     const zone = this.zoneModel.bounds(batter);
     const pitch = throwPitch(
       prng.fork('throw'),
@@ -192,10 +207,11 @@ export class Session {
       this.movementScale,
     );
     const hasRunners = runnersOn(s);
-    const balk =
-      hasRunners &&
-      index >= SESSION.balkFreeOpeningPitches &&
-      prng.fork('balk').chance(SESSION.balkChanceWithRunners);
+    const balk = drill
+      ? prng.fork('balk').chance(DRILL.balkChance)
+      : hasRunners &&
+        index >= SESSION.balkFreeOpeningPitches &&
+        prng.fork('balk').chance(SESSION.balkChanceWithRunners);
     const delivery = planDelivery(prng.fork('delivery'), pitcher, {
       startS: time + SESSION.prePitchS,
       runnersOn: hasRunners,
@@ -271,6 +287,13 @@ export class Session {
         }
         return false;
       case 'call':
+        if (this.mode === 'balkDrill') {
+          if (r.resolvedAt === null && time >= r.times.catch + DRILL.noCallResolveS) {
+            this.resolveDrillNoCall(r, r.times.catch + DRILL.noCallResolveS);
+            return true;
+          }
+          return false;
+        }
         if (r.resolvedAt === null && r.call === null && time >= r.times.catch + TIMING.timeoutS) {
           this.resolveTimeout(r, r.times.catch + TIMING.timeoutS);
           return true;
@@ -279,7 +302,7 @@ export class Session {
       case 'challenge':
         if (time >= this.challengeUntil) {
           this.phase = 'result';
-          this.resultUntil = this.challengeUntil + SESSION.resultHoldS;
+          this.resultUntil = this.holdUntil(r, this.challengeUntil);
           return true;
         }
         return false;
@@ -299,7 +322,13 @@ export class Session {
     }
   }
 
+  /** The next pitch starts on the pace target, but never before the result has had its minimum hold. */
+  private holdUntil(r: PitchRecord, resultShownAt: number): number {
+    return Math.max(resultShownAt + SESSION.minResultHoldS, r.times.start + SESSION.paceTargetS);
+  }
+
   private callBallStrike(r: PitchRecord, kind: CallKind, time: number): void {
+    if (this.mode === 'balkDrill') return;
     if (r.call || r.resolvedAt !== null || r.balk.calledAt !== null) return;
     if (this.phase !== 'flight' && this.phase !== 'call') return;
     const call: BallStrikeCall = { kind, time, grade: gradeTiming(time, r.times.catch) };
@@ -337,7 +366,7 @@ export class Session {
     r.outcome = 'balk';
     r.resolvedAt = time;
     this.phase = 'result';
-    this.resultUntil = Math.max(time, r.times.catch) + SESSION.resultHoldS;
+    this.resultUntil = this.holdUntil(r, Math.max(time, r.times.catch));
     this.pending.push({ type: 'balkCalled', record: r, correct, warning: r.balk.warning });
     this.pending.push({ type: 'resolved', record: r });
   }
@@ -394,12 +423,31 @@ export class Session {
     r.resolvedAt = time;
     if (challenge) {
       this.phase = 'challenge';
-      this.challengeUntil = time + CHALLENGE_SHOW_S;
+      this.challengeUntil = time + SESSION.challengeShowS;
       this.pending.push({ type: 'challenge', record: r, challenge });
     } else {
       this.phase = 'result';
-      this.resultUntil = time + SESSION.resultHoldS;
+      this.resultUntil = this.holdUntil(r, time);
     }
+    this.pending.push({ type: 'resolved', record: r });
+  }
+
+  /** Balk drill: the player let the delivery go. Right on a legal delivery, a missed balk on a no-stop one. */
+  private resolveDrillNoCall(r: PitchRecord, time: number): void {
+    const missed = r.balk.variant !== 'legal';
+    r.balk.missed = missed;
+    r.correct = !missed;
+    const lines: ScoreLine[] = missed
+      ? [{ label: 'Missed balk', points: -SCORING.missedBalk }]
+      : [{ label: 'Legal delivery, no call', points: SCORING.drillLegalNoCall }];
+    const scored = scoreLines(this.score, lines);
+    this.score = missed ? { ...scored.state, streak: 0 } : scored.state;
+    r.scoreLines = lines;
+    r.scoreDelta = scored.delta;
+    r.outcome = 'noCall';
+    r.resolvedAt = time;
+    this.phase = 'result';
+    this.resultUntil = this.holdUntil(r, time);
     this.pending.push({ type: 'resolved', record: r });
   }
 
@@ -423,7 +471,7 @@ export class Session {
     r.resolvedAt = time;
     if (r.balk.variant !== 'legal') r.balk.missed = true;
     this.phase = 'result';
-    this.resultUntil = time + SESSION.resultHoldS;
+    this.resultUntil = this.holdUntil(r, time);
     this.pending.push({ type: 'resolved', record: r });
   }
 }

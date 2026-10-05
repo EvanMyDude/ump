@@ -8,7 +8,7 @@ The design, research, and milestone plan live in [`docs/plans/2026-10-05-0759-fe
 
 M0 (foundations) and M1 (the core calling loop in graybox) are built. The playable build deploys to GitHub Pages from `main`: <https://evanmydude.github.io/ump/>. Next is the U9 playtest gate; see the plan's Sequencing table.
 
-What M1 plays like: a 50-pitch session against three fictional pitchers. Batters only take in M1, so every pitch is yours to call. Runners reach first now and then so the no-stop balk can happen, Robo-Ump challenges can overturn you, and the Ump Card at the end grades you by zone region and timing.
+What M1 plays like: a 50-pitch session against three fictional pitchers. Batters only take in M1, so every pitch is yours to call. Runners reach first now and then so the no-stop balk can happen, Robo-Ump challenges can overturn you, and the Ump Card at the end grades you by zone region and timing. The title screen also offers the balk drill: 24 deliveries from the stretch, about half of them no-stop balks, graded on balks spotted and false alarms.
 
 ## Run it
 
@@ -45,6 +45,7 @@ Wait for the glove to settle before calling: a call within 0.35 s of the catch i
 | `?seed=abc`    | Replays the same session exactly, given the same calls                        |
 | `?autostart=1` | Skips the title screen                                                        |
 | `?pitches=10`  | Shortens the session                                                          |
+| `?drill=balk`  | Starts the balk drill right away                                              |
 | `?debug=1`     | Opens the tuning panel (camera, overlays, game speed, seed, replay any pitch) |
 | `?touch=1`     | Shows the on-screen buttons on any device                                     |
 | `?quality=low` | Turns off shadows and antialiasing for slow devices                           |

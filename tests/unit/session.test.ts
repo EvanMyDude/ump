@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Session } from '../../src/sim/game/session';
-import { summarize } from '../../src/sim/log/pitchLog';
+import { SESSION } from '../../src/data/tuning';
+import { sessionLog, summarize } from '../../src/sim/log/pitchLog';
 import { runScriptedSession } from '../sessionScript';
 
 const advanceUntil = (s: Session, pred: () => boolean, from: number, dt = 1 / 240) => {
@@ -104,6 +105,44 @@ describe('Session flow', () => {
     }
     expect(byTeam.away.stands).toBeLessThanOrEqual(2);
     expect(byTeam.home.stands).toBeLessThanOrEqual(2);
+  });
+
+  it('starts the next pitch on the pace target when the player lets the game run (U24)', () => {
+    const s = new Session({ seed: 'pace', pitches: 12 });
+    s.start(0);
+    for (let guard = 0; guard < 200 && s.phase !== 'done'; guard++) {
+      const r = s.current!;
+      if (r.resolvedAt === null) s.input(r.truth.isStrike ? 'strike' : 'ball', r.times.catch + 0.6);
+      s.update(s.time + 0.5);
+    }
+    for (let i = 1; i < s.records.length; i++) {
+      const prev = s.records[i - 1]!;
+      const gap = s.records[i]!.times.start - prev.times.start;
+      const shownAt = prev.challenge ? prev.resolvedAt! + SESSION.challengeShowS : prev.resolvedAt!;
+      const expected = Math.max(SESSION.paceTargetS, shownAt + SESSION.minResultHoldS - prev.times.start);
+      expect(gap).toBeCloseTo(expected, 6);
+      expect(gap).toBeGreaterThanOrEqual(SESSION.paceTargetS - 1e-9);
+    }
+  });
+
+  it('lets Next start the following pitch ahead of the pace target', () => {
+    const s = new Session({ seed: 'pace-next', pitches: 3 });
+    s.start(0);
+    const r = s.current!;
+    s.input(r.truth.isStrike ? 'strike' : 'ball', r.times.catch + 0.6);
+    const tap = r.times.catch + 1.0;
+    s.input('next', tap);
+    expect(s.records).toHaveLength(r.challenge ? 1 : 2);
+    if (!r.challenge) expect(s.records[1]!.times.start).toBeCloseTo(tap, 9);
+  });
+
+  it('records the pace target and each pitch start in every log entry', () => {
+    const log = sessionLog(runScriptedSession('pace-log', 10));
+    expect(log.pitches).toHaveLength(10);
+    for (const e of log.pitches) {
+      expect(e.paceTargetS).toBe(SESSION.paceTargetS);
+      expect(typeof e.times.start).toBe('number');
+    }
   });
 
   it('is deterministic for a seed and scripted inputs', () => {

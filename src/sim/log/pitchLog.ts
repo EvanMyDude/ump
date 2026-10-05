@@ -1,8 +1,9 @@
+import { DRILL, SESSION } from '../../data/tuning';
 import type { PitchRecord, Session } from '../game/session';
 import { roundTo } from '../units';
 import type { Region } from '../zone/regions';
 
-export const LOG_VERSION = 1;
+export const LOG_VERSION = 2;
 
 const r4 = (v: number) => roundTo(v, 4);
 const r2 = (v: number) => roundTo(v, 2);
@@ -32,7 +33,12 @@ export function logEntry(p: PitchRecord) {
     edgeIn: r2(p.truth.edgeDistanceIn),
     region: p.truth.region,
     delivery: { variant: p.delivery.variant, stopS: r4(p.delivery.stopDuration) },
-    times: { release: r4(p.times.release - p.times.start), catch: r4(p.times.catch - p.times.start) },
+    times: {
+      start: r4(p.times.start),
+      release: r4(p.times.release - p.times.start),
+      catch: r4(p.times.catch - p.times.start),
+    },
+    paceTargetS: SESSION.paceTargetS,
     call: p.call
       ? { kind: p.call.kind, afterCatchS: r4(p.call.time - p.times.catch), grade: p.call.grade }
       : null,
@@ -65,6 +71,19 @@ export interface SessionSummary {
   readonly bestStreak: number;
   /** Mean seconds from one pitch's start to the next (U24 pace target). */
   readonly secondsPerPitch: number | null;
+  /** Spot-the-balk drill results (U8), measured against U9's starting balk bar; null in a game. */
+  readonly drill: DrillSummary | null;
+}
+
+export interface DrillSummary {
+  readonly deliveries: number;
+  readonly balks: number;
+  readonly spotted: number;
+  readonly missed: number;
+  /** BALK calls made before any violation (on a legal delivery, or too early on a no-stop one), warning included. */
+  readonly falseAlarms: number;
+  readonly detection: number | null;
+  readonly passed: boolean;
 }
 
 export function summarize(session: Session): SessionSummary {
@@ -104,6 +123,21 @@ export function summarize(session: Session): SessionSummary {
       else challenges.stands++;
     }
   }
+  const falseAlarms = balks.phantom + balks.warnings;
+  const detection = balks.occurred > 0 ? balks.spotted / balks.occurred : null;
+  const drill: DrillSummary | null =
+    session.mode === 'balkDrill'
+      ? {
+          deliveries: recs.length,
+          balks: balks.occurred,
+          spotted: balks.spotted,
+          missed: balks.missed,
+          falseAlarms,
+          detection: detection === null ? null : roundTo(detection, 4),
+          passed:
+            detection !== null && detection >= DRILL.passDetection && falseAlarms <= DRILL.passMaxFalseAlarms,
+        }
+      : null;
   const starts = session.records.map((r) => r.times.start);
   const secondsPerPitch =
     starts.length > 1 ? (starts[starts.length - 1]! - starts[0]!) / (starts.length - 1) : null;
@@ -119,6 +153,7 @@ export function summarize(session: Session): SessionSummary {
     score: session.score.total,
     bestStreak: session.score.bestStreak,
     secondsPerPitch: secondsPerPitch === null ? null : roundTo(secondsPerPitch, 2),
+    drill,
   };
 }
 
@@ -126,6 +161,7 @@ export function sessionLog(session: Session) {
   return {
     version: LOG_VERSION,
     seed: session.seed,
+    mode: session.mode,
     pitches: session.records.filter((r) => r.resolvedAt !== null).map(logEntry),
     summary: summarize(session),
   };

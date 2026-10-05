@@ -1,6 +1,6 @@
 import { TEAMS } from '../data/roster';
 import { PITCH_TYPES } from '../data/pitchTypes';
-import type { PitchRecord, Session } from '../sim/game/session';
+import type { PitchRecord, Session, SessionMode } from '../sim/game/session';
 import { el, formatHeight, formatInches } from './dom';
 import { kzoneSvg } from './kzone';
 
@@ -17,11 +17,15 @@ export class Hud {
   private bannerTimer = 0;
 
   private readonly balkText: string;
+  private readonly drillText: string;
   private readonly touch: boolean;
 
   constructor(root: HTMLElement, opts: { readonly touch: boolean }) {
     this.touch = opts.touch;
     this.balkText = opts.touch ? 'Runners on: tap BALK if he never stops' : 'Runners on: SPACE calls a balk';
+    this.drillText = opts.touch
+      ? 'Tap BALK only if he never stops in the set'
+      : 'SPACE only if he never stops in the set';
     this.scorebug = el('div', 'scorebug panel', root);
     this.scorePanel = el('div', 'score-panel panel', root);
     this.matchup = el('div', 'matchup', root);
@@ -30,9 +34,7 @@ export class Hud {
     this.card = el('div', 'result-card panel', root);
     this.challengeCard = el('div', 'challenge-card panel', root);
     this.hint = el('div', 'controls-hint', root);
-    this.hint.innerHTML = opts.touch
-      ? 'Tap BALL or STRIKE after the catch'
-      : '<kbd>F</kbd> BALL · <kbd>J</kbd> STRIKE · <kbd>Space</kbd> BALK · <kbd>R</kbd> REPLAY · <kbd>Enter</kbd> NEXT';
+    this.setMode('game');
   }
 
   update(session: Session): void {
@@ -44,22 +46,43 @@ export class Hud {
       <div class="inning">${s.half === 'top' ? '▲' : '▼'}${s.inning}</div>
       <div class="diamond">${base(s.bases.second, 'b2')}${base(s.bases.third, 'b3')}${base(s.bases.first, 'b1')}</div>
       <div class="count"><span>${s.balls}-${s.strikes}</span><span class="outs">${outs}</span></div>`;
-    const sc = session.score;
-    const acc = sc.called > 0 ? Math.round((100 * sc.correct) / sc.called) : null;
-    this.scorePanel.innerHTML = `
+    const progress = `${Math.min(session.records.length, session.pitchesTotal)}/${session.pitchesTotal}`;
+    if (session.mode === 'balkDrill') {
+      const done = session.records.filter((r) => r.resolvedAt !== null);
+      const spotted = done.filter((r) => r.balk.correct === true).length;
+      const falseAlarms = done.filter((r) => r.balk.calledAt !== null && r.balk.correct === false).length;
+      this.scorePanel.innerHTML = `
+      <div class="score">BALK DRILL</div>
+      <div class="sub"><span>DELIVERY ${progress}</span><span>SPOTTED ${spotted}</span><span>FALSE ALARMS ${falseAlarms}</span></div>`;
+    } else {
+      const sc = session.score;
+      const acc = sc.called > 0 ? Math.round((100 * sc.correct) / sc.called) : null;
+      this.scorePanel.innerHTML = `
       <div class="score">${sc.total.toLocaleString('en-US')}</div>
-      <div class="sub"><span>STREAK ${sc.streak}</span><span>PITCH ${Math.min(session.records.length, session.pitchesTotal)}/${session.pitchesTotal}</span>${acc === null ? '' : `<span>${acc}% RIGHT</span>`}</div>`;
+      <div class="sub"><span>STREAK ${sc.streak}</span><span>PITCH ${progress}</span>${acc === null ? '' : `<span>${acc}% RIGHT</span>`}</div>`;
+    }
     const r = session.current;
     if (r) {
       this.matchup.textContent = `${r.batter.name} (${r.batter.side}, ${formatHeight(r.batter.heightFt)}) vs ${r.pitcher.name}`;
     }
     const runnersOn = s.bases.first || s.bases.second || s.bases.third;
-    this.balkPill.classList.toggle(
-      'show',
-      runnersOn &&
-        (session.phase === 'prepitch' || session.phase === 'delivery' || session.phase === 'flight'),
-    );
-    this.balkPill.textContent = this.balkText;
+    const live = session.phase === 'prepitch' || session.phase === 'delivery' || session.phase === 'flight';
+    this.balkPill.classList.toggle('show', runnersOn && live);
+    this.balkPill.textContent = session.mode === 'balkDrill' ? this.drillText : this.balkText;
+  }
+
+  /** Resets the controls hint for a new session; the drill only uses BALK. */
+  setMode(mode: SessionMode): void {
+    if (mode === 'balkDrill') {
+      this.hint.innerHTML = this.touch
+        ? 'Tap BALK only when he never stops in the set'
+        : '<kbd>Space</kbd> BALK only when he never stops · <kbd>R</kbd> REPLAY · <kbd>Enter</kbd> NEXT';
+    } else {
+      this.hint.innerHTML = this.touch
+        ? 'Tap BALL or STRIKE after the catch'
+        : '<kbd>F</kbd> BALL · <kbd>J</kbd> STRIKE · <kbd>Space</kbd> BALK · <kbd>R</kbd> REPLAY · <kbd>Enter</kbd> NEXT';
+    }
+    this.hint.classList.remove('fade');
   }
 
   hideHint(): void {
@@ -87,7 +110,11 @@ export class Hud {
       )
       .join('');
     let verdict = '';
-    if (r.outcome === 'balk') {
+    if (r.outcome === 'noCall') {
+      verdict = r.balk.missed
+        ? '<div class="verdict bad">✗ Missed balk: he never stopped in the set (6.02(a)(13)).</div>'
+        : '<div class="verdict good">✓ Legal delivery: he came set and stopped. Good no-call.</div>';
+    } else if (r.outcome === 'balk') {
       verdict = r.balk.correct
         ? '<div class="verdict good">✓ BALK. No stop in the set (6.02(a)(13)). Runners advance.</div>'
         : r.balk.warning
@@ -111,11 +138,14 @@ export class Hud {
       }[r.call.grade];
       verdict += `<div class="timing">${timing} (${(r.call.time - r.times.catch).toFixed(2)} s after the catch)</div>`;
     }
-    if (r.balk.missed)
+    if (r.balk.missed && r.outcome !== 'noCall') {
       verdict += '<div class="verdict bad">✗ Missed balk: the pitcher never stopped in the set.</div>';
+    }
+    // A balk is a dead ball, so its card shows the delivery verdict without a pitch location.
+    const zone = r.outcome === 'balk' || r.outcome === 'noCall' ? '' : kzoneSvg(r);
     this.card.innerHTML = `
       <div class="card-head"><span>${pitchName}</span><span>${r.pitch.speedMph.toFixed(1)} mph</span></div>
-      <div class="card-body">${kzoneSvg(r)}<div class="card-text">${verdict}<ul class="points">${lines}</ul></div></div>
+      <div class="card-body">${zone}<div class="card-text">${verdict}<ul class="points">${lines}</ul></div></div>
       <div class="card-foot">${this.touch ? 'Replay or Next below' : '<kbd>R</kbd> replay · <kbd>Enter</kbd> next'}</div>`;
     this.card.classList.add('show');
   }

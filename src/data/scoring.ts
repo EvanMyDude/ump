@@ -21,6 +21,8 @@ export const SCORING = {
   missedBalk: 100,
   challengeStands: 150,
   challengeOverturned: 200,
+  /** Balk drill: holding the call on a legal delivery. */
+  drillLegalNoCall: 50,
 } as const;
 
 /** Robo-Ump challenge AI (U24): perception noise in inches and the per-team budget (2026 ABS rules). */

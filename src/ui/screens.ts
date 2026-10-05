@@ -1,8 +1,16 @@
-import type { SessionSummary } from '../sim/log/pitchLog';
+import { DRILL } from '../data/tuning';
+import type { SessionMode } from '../sim/game/session';
+import type { DrillSummary, SessionSummary } from '../sim/log/pitchLog';
 import { el } from './dom';
 
-/** Title card. The game routes Enter, Space, and the gamepad's start button to the returned `start`. */
-export function showTitle(root: HTMLElement, onStart: () => void): () => void {
+/**
+ * Title card. The game routes Enter, Space, and the gamepad's start button to the returned `start` with
+ * 'game'; the drill button starts the spot-the-balk drill.
+ */
+export function showTitle(
+  root: HTMLElement,
+  onStart: (mode: SessionMode) => void,
+): (mode: SessionMode) => void {
   const overlay = el('div', 'screen title-screen', root);
   overlay.innerHTML = `
     <div class="screen-inner">
@@ -14,18 +22,58 @@ export function showTitle(root: HTMLElement, onStart: () => void): () => void {
         <li>With runners on, watch the set. If the pitcher never stops, hit <kbd>Space</kbd> or <strong>BALK</strong>.</li>
         <li>Miss one and the batter or catcher may challenge. Robo-Ump has the final word.</li>
       </ul>
-      <button class="start-btn" type="button">PLAY BALL</button>
+      <div class="row">
+        <button class="start-btn" type="button" data-mode="game">PLAY BALL</button>
+        <button class="ghost-btn" type="button" data-mode="balkDrill">Balk drill: ${DRILL.deliveries} deliveries</button>
+      </div>
       <p class="fineprint">Prototype M1 · fictional league · 50 pitches · sound on · <kbd>R</kbd> replays a pitch</p>
     </div>`;
   let started = false;
-  const start = () => {
+  const start = (mode: SessionMode) => {
     if (started) return;
     started = true;
     overlay.remove();
-    onStart();
+    onStart(mode);
   };
-  overlay.querySelector('button')!.addEventListener('click', start);
+  for (const button of overlay.querySelectorAll<HTMLButtonElement>('button[data-mode]')) {
+    button.addEventListener('click', () => start(button.dataset.mode as SessionMode));
+  }
   return start;
+}
+
+/** End of the spot-the-balk drill (U8), graded against U9's starting balk bar. */
+export function showDrillSummary(
+  root: HTMLElement,
+  d: DrillSummary,
+  onAgain: () => void,
+  onGame: () => void,
+): void {
+  const pct = d.detection === null ? 'n/a' : `${Math.round(100 * d.detection)}%`;
+  const bar = `The bar is at least ${Math.round(100 * DRILL.passDetection)}% of balks spotted with no more than ${DRILL.passMaxFalseAlarms} false alarm.`;
+  const overlay = el('div', 'screen summary-screen drill-summary', root);
+  overlay.innerHTML = `
+    <div class="screen-inner">
+      <h2 class="logo small">BALK DRILL</h2>
+      <div class="big-stats">
+        <div><span>${pct}</span><label>balks spotted</label></div>
+        <div><span>${d.spotted} of ${d.balks}</span><label>no-stop deliveries</label></div>
+        <div><span>${d.falseAlarms}</span><label>false alarms</label></div>
+      </div>
+      <p class="verdict ${d.passed ? 'good' : 'bad'}">${d.passed ? 'PASS.' : 'NOT YET.'} ${bar}</p>
+      <p class="fineprint">The rule asks for a complete stop in the set with runners on (6.02(a)(13)). The game reads a stop as the hands holding still for a visible beat; that threshold is the game's interpretation, not the rule's text.</p>
+      <div class="row">
+        <button class="start-btn" type="button" data-act="again">DRILL AGAIN</button>
+        <button class="ghost-btn" type="button" data-act="game">Play a game</button>
+      </div>
+    </div>`;
+  overlay.querySelector('[data-act="again"]')!.addEventListener('click', () => {
+    overlay.remove();
+    onAgain();
+  });
+  overlay.querySelector('[data-act="game"]')!.addEventListener('click', () => {
+    overlay.remove();
+    onGame();
+  });
 }
 
 export function showSummary(

@@ -593,8 +593,9 @@ button:focus-visible {
   .touch-util {
     display: flex;
   }
-  .controls-hint {
-    bottom: calc(96px + env(safe-area-inset-bottom));
+  .controls-hint,
+  .replay-badge {
+    bottom: calc(124px + env(safe-area-inset-bottom));
   }
 }
 #app.force-touch .touch-controls,
@@ -602,8 +603,13 @@ button:focus-visible {
   display: flex;
 }
 #app.force-touch .controls-hint,
-#app.force-touch.replaying .replay-badge {
-  bottom: calc(96px + env(safe-area-inset-bottom));
+#app.force-touch .replay-badge {
+  bottom: calc(124px + env(safe-area-inset-bottom));
+}
+/* The balk drill has no ball or strike calls. */
+#app.mode-drill .touch-btn.ball,
+#app.mode-drill .touch-btn.strike {
+  visibility: hidden;
 }
 .touch-controls {
   position: absolute;
@@ -728,6 +734,49 @@ button:focus-visible {
   }
   .tagline {
     font-size: 15px;
+  }
+}
+
+/* Short screens (a phone held sideways): shrink the title and card screens so they fit without scrolling. */
+@media (max-height: 480px) {
+  .logo {
+    font-size: clamp(40px, 17vh, 76px);
+  }
+  .logo.small {
+    font-size: clamp(28px, 11vh, 46px);
+  }
+  .tagline {
+    margin: 4px 0 10px;
+    font-size: 14px;
+  }
+  .howto {
+    margin-bottom: 12px;
+    padding: 8px 12px 8px 28px;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+  .big-stats {
+    gap: 18px;
+    margin: 8px 0;
+  }
+  .big-stats span {
+    font-size: 24px;
+  }
+  .stat-table {
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+  .stat-table th,
+  .stat-table td {
+    padding: 3px 10px;
+  }
+  .start-btn {
+    padding: 10px 26px;
+    font-size: 19px;
+  }
+  .fineprint {
+    margin-top: 8px;
+    font-size: 11px;
   }
 }
 

@@ -13,6 +13,8 @@ export const PRESENTATION = {
   challengeRevealS: 1.3,
   /** Streak lengths that earn a banner. */
   streakBannerEvery: 5,
+  /** A faint copy of the ball in flight draws over the mitt and helmets (OQ6); the tuning panel toggles it. */
+  seeThroughBall: true,
 } as const;
 
 /** Replays run fast through the windup and slow through the flight (U7). */

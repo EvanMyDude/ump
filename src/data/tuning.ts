@@ -36,16 +36,34 @@ export const SESSION = {
   pitchesPerSession: 50,
   /** Seconds before the pitcher starts the stretch: batter digs in, catcher sets up. */
   prePitchS: 1.0,
-  /** Seconds the result stays up before the next pitch starts on its own. */
-  resultHoldS: 2.4,
-  /** Pace target the gate records (U24): seconds from one pitch's start to the next. */
+  /** The result stays up at least this long before the next pitch can start on its own. */
+  minResultHoldS: 2.0,
+  /**
+   * Pace target (U24): seconds from one pitch's start to the next when the player lets the game run. Next
+   * skips ahead; a slow delivery or a challenge can run past the target, never cut the result short.
+   */
   paceTargetS: 8,
+  /** Seconds the challenge card holds before Robo-Ump's answer gives way to the result. */
+  challengeShowS: 2.2,
   /** Chance a new batter starts with a runner on first, so balks can happen before swings exist (M1). */
   runnerOnFirstChance: 0.4,
   /** Chance a delivery with runners on is a balk variant (arcade frequency, R15). */
   balkChanceWithRunners: 0.25,
   /** No balks in the first plate appearances of a session, so players learn the legal delivery (R19). */
   balkFreeOpeningPitches: 6,
+} as const;
+
+/**
+ * Spot-the-balk drill (U8): blind, full speed, from the default camera. Every delivery comes from the stretch
+ * with a runner on first; there are no ball or strike calls. The pass bar mirrors U9's starting balk bar.
+ */
+export const DRILL = {
+  deliveries: 24,
+  balkChance: 0.5,
+  /** Without a BALK call, a delivery resolves this long after the catch. */
+  noCallResolveS: 0.45,
+  passDetection: 0.6,
+  passMaxFalseAlarms: 1,
 } as const;
 
 /** Game's operationalization of the rule's "complete stop": hands still for a visible beat (U8, U17). */

@@ -1,6 +1,7 @@
 {
-  "version": 1,
+  "version": 2,
   "seed": "golden-2",
+  "mode": "game",
   "pitches": [
     {
       "i": 0,
@@ -36,9 +37,11 @@
         "stopS": 0.9584
       },
       "times": {
+        "start": 0,
         "release": 3.9384,
         "catch": 4.4003
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.1,
@@ -92,9 +95,11 @@
         "stopS": 0.5942
       },
       "times": {
+        "start": 4.5083,
         "release": 3.5742,
         "catch": 3.9799
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.9,
@@ -148,9 +153,11 @@
         "stopS": 1.0563
       },
       "times": {
+        "start": 12.5083,
         "release": 4.0363,
         "catch": 4.4418
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.5,
@@ -204,9 +211,11 @@
         "stopS": 1.1693
       },
       "times": {
+        "start": 20.5083,
         "release": 4.1493,
         "catch": 4.6092
       },
+      "paceTargetS": 8,
       "call": null,
       "timedOut": false,
       "balk": {
@@ -256,9 +265,11 @@
         "stopS": 1.351
       },
       "times": {
+        "start": 25.1176,
         "release": 4.331,
         "catch": 4.7356
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.1,
@@ -315,9 +326,11 @@
         "stopS": 1.1783
       },
       "times": {
+        "start": 34.1532,
         "release": 4.1583,
         "catch": 4.569
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.9,
@@ -374,9 +387,11 @@
         "stopS": 1.0408
       },
       "times": {
+        "start": 43.8222,
         "release": 4.0208,
         "catch": 4.4289
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.5,
@@ -430,9 +445,11 @@
         "stopS": 1.3246
       },
       "times": {
+        "start": 48.7583,
         "release": 4.3046,
         "catch": 4.7579
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.5,
@@ -486,9 +503,11 @@
         "stopS": 0.5822
       },
       "times": {
+        "start": 56.7583,
         "release": 3.5622,
         "catch": 4.0174
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.1,
@@ -542,9 +561,11 @@
         "stopS": 0
       },
       "times": {
+        "start": 64.7583,
         "release": 2.98,
         "catch": 3.4391
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.9,
@@ -601,9 +622,11 @@
         "stopS": 1.4415
       },
       "times": {
+        "start": 71.3,
         "release": 4.4215,
         "catch": 4.8282
       },
+      "paceTargetS": 8,
       "call": null,
       "timedOut": false,
       "balk": {
@@ -653,9 +676,11 @@
         "stopS": 1.1538
       },
       "times": {
+        "start": 79.3,
         "release": 4.1338,
         "catch": 4.5316
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.5,
@@ -709,9 +734,11 @@
         "stopS": 0
       },
       "times": {
+        "start": 87.3,
         "release": 2.98,
         "catch": 3.3796
       },
+      "paceTargetS": 8,
       "call": null,
       "timedOut": false,
       "balk": {
@@ -761,9 +788,11 @@
         "stopS": 0.967
       },
       "times": {
+        "start": 90.6796,
         "release": 3.947,
         "catch": 4.3539
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.9,
@@ -817,9 +846,11 @@
         "stopS": 0.5557
       },
       "times": {
+        "start": 98.6796,
         "release": 3.5357,
         "catch": 3.9903
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.5,
@@ -876,9 +907,11 @@
         "stopS": 1.2906
       },
       "times": {
+        "start": 107.3699,
         "release": 4.2706,
         "catch": 4.6768
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.5,
@@ -932,9 +965,11 @@
         "stopS": 0
       },
       "times": {
+        "start": 112.55,
         "release": 2.98,
         "catch": 3.4248
       },
+      "paceTargetS": 8,
       "call": null,
       "timedOut": false,
       "balk": {
@@ -984,9 +1019,11 @@
         "stopS": 0.5994
       },
       "times": {
+        "start": 120.55,
         "release": 3.5794,
         "catch": 3.9886
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.9,
@@ -1040,9 +1077,11 @@
         "stopS": 0.8148
       },
       "times": {
+        "start": 128.55,
         "release": 3.7948,
         "catch": 4.2371
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.5,
@@ -1096,9 +1135,11 @@
         "stopS": 0.7653
       },
       "times": {
+        "start": 133.2917,
         "release": 3.7453,
         "catch": 4.1469
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.5,
@@ -1155,9 +1196,11 @@
         "stopS": 0.5865
       },
       "times": {
+        "start": 142.1385,
         "release": 3.5665,
         "catch": 3.968
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.1,
@@ -1211,9 +1254,11 @@
         "stopS": 1.4495
       },
       "times": {
+        "start": 150.1385,
         "release": 4.4295,
         "catch": 4.8326
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.9,
@@ -1267,9 +1312,11 @@
         "stopS": 1.4728
       },
       "times": {
+        "start": 155.875,
         "release": 4.4528,
         "catch": 4.8587
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.5,
@@ -1326,9 +1373,11 @@
         "stopS": 1.2605
       },
       "times": {
+        "start": 165.4337,
         "release": 4.2405,
         "catch": 4.6545
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.5,
@@ -1382,9 +1431,11 @@
         "stopS": 1.2331
       },
       "times": {
+        "start": 173.4337,
         "release": 4.2131,
         "catch": 4.6163
       },
+      "paceTargetS": 8,
       "call": null,
       "timedOut": false,
       "balk": {
@@ -1434,9 +1485,11 @@
         "stopS": 0.8896
       },
       "times": {
+        "start": 178.0499,
         "release": 3.8696,
         "catch": 4.2776
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.9,
@@ -1490,9 +1543,11 @@
         "stopS": 1.2889
       },
       "times": {
+        "start": 186.0499,
         "release": 4.2689,
         "catch": 4.6724
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "ball",
         "afterCatchS": 0.5,
@@ -1546,9 +1601,11 @@
         "stopS": 0.6896
       },
       "times": {
+        "start": 194.0499,
         "release": 3.6696,
         "catch": 4.1277
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.5,
@@ -1605,9 +1662,11 @@
         "stopS": 0
       },
       "times": {
+        "start": 200.8833,
         "release": 2.98,
         "catch": 3.4387
       },
+      "paceTargetS": 8,
       "call": null,
       "timedOut": false,
       "balk": {
@@ -1657,9 +1716,11 @@
         "stopS": 0
       },
       "times": {
+        "start": 208.8833,
         "release": 2.98,
         "catch": 3.4021
       },
+      "paceTargetS": 8,
       "call": {
         "kind": "strike",
         "afterCatchS": 0.9,
@@ -1727,6 +1788,7 @@
     },
     "score": 9622,
     "bestStreak": 4,
-    "secondsPerPitch": 6.83
+    "secondsPerPitch": 7.2,
+    "drill": null
   }
 }

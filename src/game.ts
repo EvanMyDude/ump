@@ -17,12 +17,12 @@ import { BallView } from './render/fx/ballView';
 import { mountMask } from './render/overlay/mask';
 import { ZoneOverlay } from './render/replay/zoneOverlay';
 import { buildBallpark, buildEnvironment } from './render/scene/ballpark';
-import type { BallStrikeCall, PitchRecord, SessionEvent } from './sim/game/session';
+import type { BallStrikeCall, PitchRecord, SessionEvent, SessionMode } from './sim/game/session';
 import { Session } from './sim/game/session';
 import { sessionLog, summarize } from './sim/log/pitchLog';
 import { el } from './ui/dom';
 import { Hud } from './ui/hud';
-import { showSummary, showTitle } from './ui/screens';
+import { showDrillSummary, showSummary, showTitle } from './ui/screens';
 import { mountTouchControls } from './ui/touch';
 
 export type ViewMode = 'umpire' | keyof typeof REPLAY_VIEWS;
@@ -36,6 +36,8 @@ export interface GameOptions {
   readonly autostart: boolean;
   readonly touch: boolean;
   readonly pitches?: number;
+  /** The mode the session starts in; the title screen can switch it. */
+  readonly mode?: SessionMode;
   /** 'low' turns off shadows and antialiasing for slow devices and software-rendered test runs. */
   readonly quality?: 'high' | 'low';
 }
@@ -114,6 +116,7 @@ export class Game {
   readonly scene = new THREE.Scene();
   readonly ump = new UmpireCamera();
   readonly overlays = { zone: false, path: false };
+  readonly assists = { seeThroughBall: PRESENTATION.seeThroughBall as boolean };
   readonly audio = new AudioEngine();
   timeScale = 1;
   replaySlowSpeed: number = REPLAY.slowSpeed;
@@ -146,7 +149,7 @@ export class Game {
   private lastFrameMs: number | null = null;
   private running = false;
   private testPaused = false;
-  private titleStart: (() => void) | null = null;
+  private titleStart: ((mode: SessionMode) => void) | null = null;
   private replay: ReplayState | null = null;
   private frozen: { time: number; prev: number } | null = null;
   private reveal: { record: PitchRecord; at: number } | null = null;
@@ -163,7 +166,7 @@ export class Game {
     this.hudRoot = opts.hudRoot;
     this.baseSeed = opts.seed;
     this.pitches = opts.pitches;
-    this.session = new Session({ seed: opts.seed, pitches: opts.pitches });
+    this.session = this.makeSession(opts.seed, opts.mode ?? 'game');
 
     const high = opts.quality !== 'low';
     this.renderer = new THREE.WebGLRenderer({
@@ -217,7 +220,12 @@ export class Game {
 
     this.idlePose();
     if (opts.autostart) this.begin();
-    else this.titleStart = showTitle(this.hudRoot, () => this.begin());
+    else {
+      this.titleStart = showTitle(this.hudRoot, (mode) => {
+        if (mode !== this.session.mode) this.session = this.makeSession(this.baseSeed, mode);
+        this.begin();
+      });
+    }
 
     this.renderer.setAnimationLoop((now) => this.frame(now));
   }
@@ -269,13 +277,22 @@ export class Game {
   private begin(): void {
     this.titleStart = null;
     this.running = true;
+    this.app.classList.toggle('mode-drill', this.session.mode === 'balkDrill');
+    this.hud.setMode(this.session.mode);
     this.queue.drain();
     this.handleEvents(this.session.start(this.simTime));
   }
 
-  private newSession(): void {
+  /** `pitches` from the URL shortens games only; the drill always runs its full set of deliveries. */
+  private makeSession(seed: string, mode: SessionMode): Session {
+    return new Session({ seed, mode, pitches: mode === 'game' ? this.pitches : undefined });
+  }
+
+  private newSession(mode: SessionMode = this.session.mode, seed?: string): void {
     this.sessionNumber++;
-    this.session = new Session({ seed: `${this.baseSeed}-${this.sessionNumber}`, pitches: this.pitches });
+    document.querySelectorAll('.summary-screen, .title-screen').forEach((n) => n.remove());
+    this.titleStart = null;
+    this.session = this.makeSession(seed ?? `${this.baseSeed}-${this.sessionNumber}`, mode);
     this.simTime = 0;
     this.lastLiveTime = 0;
     this.replay = null;
@@ -303,7 +320,7 @@ export class Game {
       return;
     }
     if (this.titleStart) {
-      if (intent === 'next' || intent === 'balk') this.titleStart();
+      if (intent === 'next' || intent === 'balk') this.titleStart('game');
       return;
     }
     if (!this.running) return;
@@ -400,7 +417,9 @@ export class Game {
     this.hud.showResult(r);
     this.hud.hideHint();
     const good = r.outcome === 'balk' ? r.balk.correct === true : r.correct === true;
-    if (withCrowd) {
+    // A legal drill delivery that passes without a call is a non-event, so the crowd stays quiet.
+    const quiet = r.outcome === 'noCall' && good;
+    if (withCrowd && !quiet) {
       if (good) this.audio.cheer(r.outcome === 'strikeout');
       else this.audio.boo();
     }
@@ -431,10 +450,20 @@ export class Game {
     this.running = false;
     this.replay = null;
     this.hud.clearResult();
+    const summary = summarize(this.session);
+    if (summary.drill) {
+      showDrillSummary(
+        this.hudRoot,
+        summary.drill,
+        () => this.newSession('balkDrill'),
+        () => this.newSession('game'),
+      );
+      return;
+    }
     showSummary(
       this.hudRoot,
-      summarize(this.session),
-      () => this.newSession(),
+      summary,
+      () => this.newSession('game'),
       () => this.downloadLog(),
     );
   }
@@ -493,6 +522,7 @@ export class Game {
     this.batter.update(t);
     this.catcher.update(record, t);
     this.catcher.group.visible = view !== 'catcher';
+    this.ball.ghostEnabled = this.assists.seeThroughBall;
     this.ball.update(
       record,
       t,
@@ -576,16 +606,7 @@ export class Game {
   }
 
   restartWithSeed(seed: string): void {
-    this.sessionNumber = 0;
-    document.querySelectorAll('.summary-screen, .title-screen').forEach((n) => n.remove());
-    this.session = new Session({ seed, pitches: this.pitches });
-    this.simTime = 0;
-    this.lastLiveTime = 0;
-    this.replay = null;
-    this.reveal = null;
-    this.perf.reset();
-    this.hud.clearResult();
-    this.begin();
+    this.newSession(this.session.mode, seed);
   }
 
   async toggleDebug(): Promise<void> {

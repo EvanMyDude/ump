@@ -114,6 +114,11 @@ describe('catcher and batter rigs (U5)', () => {
     expect(ghosts().some((g) => g.visible)).toBe(false);
     view.update(r, r.times.catch + 0.1, r.times.catch + 0.08, held, caught);
     expect(ghosts().some((g) => g.visible)).toBe(false);
+    // The tuning panel can turn it off (OQ6) without touching the solid ball and streak.
+    view.ghostEnabled = false;
+    view.update(r, r.times.cross, r.times.cross - 1 / 60, held, caught);
+    expect(ghosts().some((g) => g.visible)).toBe(false);
+    expect(view.lastSegment.visible).toBe(true);
   });
 });
 

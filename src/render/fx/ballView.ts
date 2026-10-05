@@ -28,6 +28,8 @@ export class BallView {
   private readonly b = new THREE.Vector3();
   private readonly mid = new THREE.Vector3();
   private readonly d = new THREE.Vector3();
+  /** Draw the see-through copy during flight (OQ6). */
+  ghostEnabled = true;
   /** Last drawn streak endpoints, exposed for tests and replays. */
   readonly lastSegment = { from: new THREE.Vector3(), to: new THREE.Vector3(), visible: false };
 
@@ -90,7 +92,7 @@ export class BallView {
     toThree(positionAt(tr, t1 - release), this.b);
     this.ball.position.copy(time > catchT ? caught : this.b);
     this.ghost.position.copy(this.b);
-    this.ghost.visible = true;
+    this.ghost.visible = this.ghostEnabled;
     this.d.subVectors(this.b, this.a);
     const len = this.d.length();
     if (len > BALL_RADIUS * 0.5) {
@@ -100,7 +102,7 @@ export class BallView {
         mesh.position.copy(this.mid);
         mesh.quaternion.setFromUnitVectors(UP, this.d);
         mesh.scale.set(1, len, 1);
-        mesh.visible = true;
+        mesh.visible = mesh === this.streak || this.ghostEnabled;
       }
       this.lastSegment.from.copy(this.a);
       this.lastSegment.to.copy(this.b);

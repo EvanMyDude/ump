@@ -35,3 +35,35 @@ test.describe('session flow (U7, U8, U24)', () => {
     await expect(page.locator('.result-card')).toContainText('BALK');
   });
 });
+
+test.describe('spot-the-balk drill (U8)', () => {
+  test('a run that spots every no-stop delivery passes the drill', async ({ page }) => {
+    await openGame(page, 'seed=e2e-drill-1&drill=balk&quality=low');
+    await page.evaluate(() => window.__ump!.pause());
+    await expect(page.locator('.score-panel')).toContainText('BALK DRILL');
+    for (let i = 0; i < 40 && (await page.evaluate(() => window.__ump!.phase)) !== 'done'; i++) {
+      await page.evaluate(() => {
+        const u = window.__ump!;
+        const p = u.pitch()!;
+        if (!p.resolved && p.variant === 'noStop') {
+          u.advanceTo(p.violationTime! + 0.25);
+          u.inputNow('balk');
+        }
+        // Step until the next delivery starts, so no delivery passes without a decision.
+        for (let k = 0; k < 400 && u.phase !== 'done' && u.pitch()!.index === p.index; k++)
+          u.advanceTo(u.simTime + 0.25);
+      });
+    }
+    await expect(page.locator('.drill-summary')).toBeVisible();
+    await expect(page.locator('.drill-summary')).toContainText('PASS');
+    await expect(page.locator('.drill-summary')).toContainText('100%');
+  });
+
+  test('the title screen starts the drill', async ({ page }) => {
+    await openGame(page, 'seed=e2e-drill-2&quality=low');
+    await page.getByRole('button', { name: /Balk drill/ }).click();
+    await page.waitForFunction(() => window.__ump!.phase !== 'ready');
+    await expect(page.locator('.score-panel')).toContainText('BALK DRILL');
+    await expect(page.locator('.scorebug .b1')).toHaveClass(/on/);
+  });
+});

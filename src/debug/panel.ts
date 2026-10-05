@@ -18,6 +18,7 @@ export function createDebugPanel(game: Game): { toggle(): void } {
   const view = gui.addFolder('Overlays');
   view.add(game.overlays, 'zone').name('True zone');
   view.add(game.overlays, 'path').name('Ball path and crossing');
+  view.add(game.assists, 'seeThroughBall').name('See-through ball (OQ6)');
 
   const time = gui.addFolder('Time');
   time.add(game, 'timeScale', 0.1, 1.5, 0.05).name('Game speed');
