@@ -1,0 +1,37 @@
+import { expect, test } from '@playwright/test';
+import { callAndAdvance, currentPitch, openGame } from './helpers';
+
+test.describe('session flow (U7, U8, U24)', () => {
+  test('a scripted short session runs to the Ump Card', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (e) => errors.push(e.message));
+    await openGame(page, 'seed=e2e-flow-1&autostart=1&quality=low&pitches=6');
+    await page.evaluate(() => window.__ump!.pause());
+    for (let i = 0; i < 20 && (await page.evaluate(() => window.__ump!.phase)) !== 'done'; i++) {
+      await callAndAdvance(page);
+    }
+    await expect(page.locator('.summary-screen')).toBeVisible();
+    await expect(page.locator('.summary-screen')).toContainText('UMP CARD');
+    await expect(page.locator('.big-stats')).toContainText('100.0%');
+    expect(errors).toEqual([]);
+  });
+
+  test('a no-stop delivery with a runner on can be called a balk with Space', async ({ page }) => {
+    // Calling every pitch right, this seed's first no-stop delivery is pitch 6 (checked offline).
+    await openGame(page, 'seed=e2e-balk-2&autostart=1&quality=low');
+    await page.evaluate(() => window.__ump!.pause());
+    for (let i = 0; i < 6; i++) await callAndAdvance(page);
+    const p = await currentPitch(page);
+    expect(p.index).toBe(6);
+    expect(p.runnersOn).toBe(true);
+    expect(p.variant).toBe('noStop');
+    await expect(page.locator('.balk-pill')).toHaveClass(/show/);
+    await page.evaluate((t) => window.__ump!.advanceTo(t), p.violationTime! + 0.25);
+    await page.keyboard.press('Space');
+    await page.waitForFunction(() => window.__ump!.pitch()!.resolved);
+    const done = await currentPitch(page);
+    expect(done.outcome).toBe('balk');
+    expect(done.balkCorrect).toBe(true);
+    await expect(page.locator('.result-card')).toContainText('BALK');
+  });
+});

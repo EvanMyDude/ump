@@ -51,7 +51,13 @@ describe('Rng', () => {
   it('respects weights', () => {
     const rng = createRng('weights');
     const counts = { a: 0, b: 0 };
-    for (let i = 0; i < 10_000; i++) counts[rng.weighted([{ item: 'a' as const, weight: 3 }, { item: 'b' as const, weight: 1 }])]++;
+    for (let i = 0; i < 10_000; i++)
+      counts[
+        rng.weighted([
+          { item: 'a' as const, weight: 3 },
+          { item: 'b' as const, weight: 1 },
+        ])
+      ]++;
     expect(counts.a / 10_000).toBeGreaterThan(0.72);
     expect(counts.a / 10_000).toBeLessThan(0.78);
   });

@@ -1,0 +1,1734 @@
+{
+  "version": 1,
+  "seed": "golden-1",
+  "pitches": [
+    {
+      "i": 0,
+      "pitcher": "calloway",
+      "batter": "okafor",
+      "side": "R",
+      "heightFt": 6,
+      "inning": "T1",
+      "outs": 0,
+      "count": "0-0",
+      "runners": "000",
+      "type": "FF",
+      "mph": 95.88,
+      "plateMph": 88.21,
+      "breakIn": {
+        "x": -8.93,
+        "z": 14.41
+      },
+      "aimRegion": "chase",
+      "crossIn": {
+        "x": 22.07,
+        "z": 21.84
+      },
+      "zoneIn": {
+        "bottom": 19.44,
+        "top": 38.52
+      },
+      "truth": "ball",
+      "edgeIn": 12.12,
+      "region": "waste",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.4257
+      },
+      "times": {
+        "release": 3.4057,
+        "catch": 3.8157
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.1,
+        "grade": "quick"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": true,
+      "points": 70
+    },
+    {
+      "i": 1,
+      "pitcher": "calloway",
+      "batter": "okafor",
+      "side": "R",
+      "heightFt": 6,
+      "inning": "T1",
+      "outs": 0,
+      "count": "1-0",
+      "runners": "000",
+      "type": "FF",
+      "mph": 98.57,
+      "plateMph": 90.69,
+      "breakIn": {
+        "x": -7.32,
+        "z": 14.09
+      },
+      "aimRegion": "waste",
+      "crossIn": {
+        "x": 32.04,
+        "z": 48.29
+      },
+      "zoneIn": {
+        "bottom": 19.44,
+        "top": 38.52
+      },
+      "truth": "ball",
+      "edgeIn": 24.04,
+      "region": "waste",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.6042
+      },
+      "times": {
+        "release": 3.5842,
+        "catch": 3.9824
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.9,
+        "grade": "pro"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": true,
+      "points": 179
+    },
+    {
+      "i": 2,
+      "pitcher": "calloway",
+      "batter": "okafor",
+      "side": "R",
+      "heightFt": 6,
+      "inning": "T1",
+      "outs": 0,
+      "count": "2-0",
+      "runners": "000",
+      "type": "SL",
+      "mph": 84.94,
+      "plateMph": 78.15,
+      "breakIn": {
+        "x": 2.94,
+        "z": 0.75
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": 12.64,
+        "z": 23.32
+      },
+      "zoneIn": {
+        "bottom": 19.44,
+        "top": 38.52
+      },
+      "truth": "ball",
+      "edgeIn": 2.69,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.6323
+      },
+      "times": {
+        "release": 3.6123,
+        "catch": 4.0753
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": true,
+      "points": 477
+    },
+    {
+      "i": 3,
+      "pitcher": "calloway",
+      "batter": "okafor",
+      "side": "R",
+      "heightFt": 6,
+      "inning": "T1",
+      "outs": 0,
+      "count": "3-0",
+      "runners": "000",
+      "type": "FF",
+      "mph": 96.92,
+      "plateMph": 89.16,
+      "breakIn": {
+        "x": -6.24,
+        "z": 15.31
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": -1.32,
+        "z": 26.55
+      },
+      "zoneIn": {
+        "bottom": 19.44,
+        "top": 38.52
+      },
+      "truth": "strike",
+      "edgeIn": -8.56,
+      "region": "heart",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.0607
+      },
+      "times": {
+        "release": 3.0407,
+        "catch": 3.4453
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": true,
+      "points": 312
+    },
+    {
+      "i": 4,
+      "pitcher": "calloway",
+      "batter": "okafor",
+      "side": "R",
+      "heightFt": 6,
+      "inning": "T1",
+      "outs": 0,
+      "count": "3-1",
+      "runners": "000",
+      "type": "FF",
+      "mph": 97.63,
+      "plateMph": 89.82,
+      "breakIn": {
+        "x": -8.74,
+        "z": 15.44
+      },
+      "aimRegion": "chase",
+      "crossIn": {
+        "x": -13.85,
+        "z": 42.03
+      },
+      "zoneIn": {
+        "bottom": 19.44,
+        "top": 38.52
+      },
+      "truth": "ball",
+      "edgeIn": 4.94,
+      "region": "chase",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.8312
+      },
+      "times": {
+        "release": 3.8112,
+        "catch": 4.2121
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.1,
+        "grade": "quick"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": {
+        "by": "batter",
+        "overturned": true
+      },
+      "finalCall": "ball",
+      "outcome": "walk",
+      "correct": false,
+      "points": -638
+    },
+    {
+      "i": 5,
+      "pitcher": "calloway",
+      "batter": "pennington",
+      "side": "L",
+      "heightFt": 5.75,
+      "inning": "T1",
+      "outs": 0,
+      "count": "0-0",
+      "runners": "100",
+      "type": "FF",
+      "mph": 96.48,
+      "plateMph": 88.76,
+      "breakIn": {
+        "x": -7.16,
+        "z": 14.3
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": -7.18,
+        "z": 31.53
+      },
+      "zoneIn": {
+        "bottom": 18.63,
+        "top": 36.92
+      },
+      "truth": "strike",
+      "edgeIn": -2.77,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.178
+      },
+      "times": {
+        "release": 4.158,
+        "catch": 4.5641
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.9,
+        "grade": "pro"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": true,
+      "points": 186
+    },
+    {
+      "i": 6,
+      "pitcher": "calloway",
+      "batter": "pennington",
+      "side": "L",
+      "heightFt": 5.75,
+      "inning": "T1",
+      "outs": 0,
+      "count": "0-1",
+      "runners": "100",
+      "type": "SL",
+      "mph": 86.7,
+      "plateMph": 79.77,
+      "breakIn": {
+        "x": 0.38,
+        "z": 0.11
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": 3.96,
+        "z": 28.45
+      },
+      "zoneIn": {
+        "bottom": 18.63,
+        "top": 36.92
+      },
+      "truth": "strike",
+      "edgeIn": -5.99,
+      "region": "heart",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.5615
+      },
+      "times": {
+        "release": 3.5415,
+        "catch": 3.9945
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": true,
+      "points": 121
+    },
+    {
+      "i": 7,
+      "pitcher": "calloway",
+      "batter": "pennington",
+      "side": "L",
+      "heightFt": 5.75,
+      "inning": "T1",
+      "outs": 0,
+      "count": "0-2",
+      "runners": "100",
+      "type": "FF",
+      "mph": 96.96,
+      "plateMph": 89.2,
+      "breakIn": {
+        "x": -7.63,
+        "z": 15.85
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": -3.78,
+        "z": 37.41
+      },
+      "zoneIn": {
+        "bottom": 18.63,
+        "top": 36.92
+      },
+      "truth": "strike",
+      "edgeIn": -0.96,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.2597
+      },
+      "times": {
+        "release": 4.2397,
+        "catch": 4.6436
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "strike",
+      "outcome": "strikeout",
+      "correct": true,
+      "points": 720
+    },
+    {
+      "i": 8,
+      "pitcher": "calloway",
+      "batter": "kowalski",
+      "side": "R",
+      "heightFt": 6.5,
+      "inning": "T1",
+      "outs": 1,
+      "count": "0-0",
+      "runners": "100",
+      "type": "SL",
+      "mph": 86.05,
+      "plateMph": 79.17,
+      "breakIn": {
+        "x": 6.5,
+        "z": -0.6
+      },
+      "aimRegion": "shadow",
+      "crossIn": {
+        "x": -9,
+        "z": 39.03
+      },
+      "zoneIn": {
+        "bottom": 21.06,
+        "top": 41.73
+      },
+      "truth": "strike",
+      "edgeIn": -0.95,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.1821
+      },
+      "times": {
+        "release": 4.1621,
+        "catch": 4.6178
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.1,
+        "grade": "quick"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": {
+        "by": "batter",
+        "overturned": false
+      },
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": true,
+      "points": 445
+    },
+    {
+      "i": 9,
+      "pitcher": "calloway",
+      "batter": "kowalski",
+      "side": "R",
+      "heightFt": 6.5,
+      "inning": "T1",
+      "outs": 1,
+      "count": "0-1",
+      "runners": "100",
+      "type": "FF",
+      "mph": 96.53,
+      "plateMph": 88.8,
+      "breakIn": {
+        "x": -9.76,
+        "z": 14.89
+      },
+      "aimRegion": "waste",
+      "crossIn": {
+        "x": 0.99,
+        "z": 8.4
+      },
+      "zoneIn": {
+        "bottom": 21.06,
+        "top": 41.73
+      },
+      "truth": "ball",
+      "edgeIn": 11.21,
+      "region": "chase",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.8615
+      },
+      "times": {
+        "release": 3.8415,
+        "catch": 4.2489
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.9,
+        "grade": "pro"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": {
+        "by": "batter",
+        "overturned": true
+      },
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": false,
+      "points": -332
+    },
+    {
+      "i": 10,
+      "pitcher": "calloway",
+      "batter": "kowalski",
+      "side": "R",
+      "heightFt": 6.5,
+      "inning": "T1",
+      "outs": 1,
+      "count": "1-1",
+      "runners": "100",
+      "type": "SL",
+      "mph": 86.04,
+      "plateMph": 79.15,
+      "breakIn": {
+        "x": 3.21,
+        "z": -0.24
+      },
+      "aimRegion": "waste",
+      "crossIn": {
+        "x": -14.09,
+        "z": 29.35
+      },
+      "zoneIn": {
+        "bottom": 21.06,
+        "top": 41.73
+      },
+      "truth": "ball",
+      "edgeIn": 4.14,
+      "region": "chase",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.0334
+      },
+      "times": {
+        "release": 4.0134,
+        "catch": 4.4695
+      },
+      "call": null,
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": 1.95,
+        "correct": false,
+        "missed": false,
+        "warning": true
+      },
+      "challenge": null,
+      "finalCall": null,
+      "outcome": "balk",
+      "correct": null,
+      "points": 0
+    },
+    {
+      "i": 11,
+      "pitcher": "calloway",
+      "batter": "kowalski",
+      "side": "R",
+      "heightFt": 6.5,
+      "inning": "T1",
+      "outs": 1,
+      "count": "1-1",
+      "runners": "010",
+      "type": "CH",
+      "mph": 85.73,
+      "plateMph": 78.87,
+      "breakIn": {
+        "x": -16.12,
+        "z": 2.43
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": 13.13,
+        "z": 32.62
+      },
+      "zoneIn": {
+        "bottom": 21.06,
+        "top": 41.73
+      },
+      "truth": "ball",
+      "edgeIn": 3.18,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.6449
+      },
+      "times": {
+        "release": 3.6249,
+        "catch": 4.0832
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": true,
+      "points": 198
+    },
+    {
+      "i": 12,
+      "pitcher": "calloway",
+      "batter": "kowalski",
+      "side": "R",
+      "heightFt": 6.5,
+      "inning": "T1",
+      "outs": 1,
+      "count": "2-1",
+      "runners": "010",
+      "type": "FF",
+      "mph": 99.33,
+      "plateMph": 91.38,
+      "breakIn": {
+        "x": -8.64,
+        "z": 12.49
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": -12.81,
+        "z": 43.18
+      },
+      "zoneIn": {
+        "bottom": 21.06,
+        "top": 41.73
+      },
+      "truth": "ball",
+      "edgeIn": 3.1,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.9762
+      },
+      "times": {
+        "release": 3.9562,
+        "catch": 4.3502
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.1,
+        "grade": "quick"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": true,
+      "points": 321
+    },
+    {
+      "i": 13,
+      "pitcher": "calloway",
+      "batter": "kowalski",
+      "side": "R",
+      "heightFt": 6.5,
+      "inning": "T1",
+      "outs": 1,
+      "count": "3-1",
+      "runners": "010",
+      "type": "SL",
+      "mph": 85.84,
+      "plateMph": 78.98,
+      "breakIn": {
+        "x": 2.98,
+        "z": -0.05
+      },
+      "aimRegion": "chase",
+      "crossIn": {
+        "x": 6.7,
+        "z": 16.16
+      },
+      "zoneIn": {
+        "bottom": 21.06,
+        "top": 41.73
+      },
+      "truth": "ball",
+      "edgeIn": 3.45,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.5785
+      },
+      "times": {
+        "release": 4.5585,
+        "catch": 5.0169
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.9,
+        "grade": "pro"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "walk",
+      "correct": true,
+      "points": 545
+    },
+    {
+      "i": 14,
+      "pitcher": "calloway",
+      "batter": "sato",
+      "side": "L",
+      "heightFt": 5.9,
+      "inning": "T1",
+      "outs": 1,
+      "count": "0-0",
+      "runners": "110",
+      "type": "SL",
+      "mph": 85.71,
+      "plateMph": 78.86,
+      "breakIn": {
+        "x": 6.6,
+        "z": 1.61
+      },
+      "aimRegion": "shadow",
+      "crossIn": {
+        "x": -4.33,
+        "z": 18.64
+      },
+      "zoneIn": {
+        "bottom": 19.12,
+        "top": 37.88
+      },
+      "truth": "strike",
+      "edgeIn": -0.98,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.8783
+      },
+      "times": {
+        "release": 3.8583,
+        "catch": 4.3169
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": false,
+      "points": -60
+    },
+    {
+      "i": 15,
+      "pitcher": "calloway",
+      "batter": "sato",
+      "side": "L",
+      "heightFt": 5.9,
+      "inning": "T1",
+      "outs": 1,
+      "count": "1-0",
+      "runners": "110",
+      "type": "SL",
+      "mph": 86.32,
+      "plateMph": 79.41,
+      "breakIn": {
+        "x": 0.61,
+        "z": -1.34
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": -2.8,
+        "z": 40.83
+      },
+      "zoneIn": {
+        "bottom": 19.12,
+        "top": 37.88
+      },
+      "truth": "ball",
+      "edgeIn": 1.51,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.4981
+      },
+      "times": {
+        "release": 4.4781,
+        "catch": 4.9324
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": true,
+      "points": 315
+    },
+    {
+      "i": 16,
+      "pitcher": "calloway",
+      "batter": "sato",
+      "side": "L",
+      "heightFt": 5.9,
+      "inning": "T1",
+      "outs": 1,
+      "count": "2-0",
+      "runners": "110",
+      "type": "CH",
+      "mph": 86.54,
+      "plateMph": 79.62,
+      "breakIn": {
+        "x": -16.59,
+        "z": 5.39
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": 7.2,
+        "z": 21.84
+      },
+      "zoneIn": {
+        "bottom": 19.12,
+        "top": 37.88
+      },
+      "truth": "strike",
+      "edgeIn": -2.75,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.4596
+      },
+      "times": {
+        "release": 4.4396,
+        "catch": 4.8938
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.1,
+        "grade": "quick"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": true,
+      "points": 399
+    },
+    {
+      "i": 17,
+      "pitcher": "calloway",
+      "batter": "sato",
+      "side": "L",
+      "heightFt": 5.9,
+      "inning": "T1",
+      "outs": 1,
+      "count": "2-1",
+      "runners": "110",
+      "type": "FF",
+      "mph": 95.32,
+      "plateMph": 87.7,
+      "breakIn": {
+        "x": -7.56,
+        "z": 15.76
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": 8.42,
+        "z": 19.27
+      },
+      "zoneIn": {
+        "bottom": 19.12,
+        "top": 37.88
+      },
+      "truth": "strike",
+      "edgeIn": -1.53,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.338
+      },
+      "times": {
+        "release": 4.318,
+        "catch": 4.73
+      },
+      "call": null,
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": 1.95,
+        "correct": false,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": null,
+      "outcome": "balk",
+      "correct": null,
+      "points": -150
+    },
+    {
+      "i": 18,
+      "pitcher": "calloway",
+      "batter": "sato",
+      "side": "L",
+      "heightFt": 5.9,
+      "inning": "T1",
+      "outs": 1,
+      "count": "2-1",
+      "runners": "011",
+      "type": "FF",
+      "mph": 96.96,
+      "plateMph": 89.21,
+      "breakIn": {
+        "x": -7.21,
+        "z": 14.64
+      },
+      "aimRegion": "shadow",
+      "crossIn": {
+        "x": -15.54,
+        "z": 30.31
+      },
+      "zoneIn": {
+        "bottom": 19.12,
+        "top": 37.88
+      },
+      "truth": "ball",
+      "edgeIn": 5.59,
+      "region": "chase",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.5115
+      },
+      "times": {
+        "release": 4.4915,
+        "catch": 4.8955
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": true,
+      "points": 220
+    },
+    {
+      "i": 19,
+      "pitcher": "calloway",
+      "batter": "sato",
+      "side": "L",
+      "heightFt": 5.9,
+      "inning": "T1",
+      "outs": 1,
+      "count": "3-1",
+      "runners": "011",
+      "type": "FF",
+      "mph": 98.01,
+      "plateMph": 90.17,
+      "breakIn": {
+        "x": -8.02,
+        "z": 17.08
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": 9.45,
+        "z": 27.64
+      },
+      "zoneIn": {
+        "bottom": 19.12,
+        "top": 37.88
+      },
+      "truth": "strike",
+      "edgeIn": -0.5,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.9448
+      },
+      "times": {
+        "release": 3.9248,
+        "catch": 4.3251
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": {
+        "by": "catcher",
+        "overturned": true
+      },
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": false,
+      "points": -404
+    },
+    {
+      "i": 20,
+      "pitcher": "calloway",
+      "batter": "sato",
+      "side": "L",
+      "heightFt": 5.9,
+      "inning": "T1",
+      "outs": 1,
+      "count": "3-2",
+      "runners": "011",
+      "type": "FF",
+      "mph": 95.53,
+      "plateMph": 87.89,
+      "breakIn": {
+        "x": -7,
+        "z": 15.35
+      },
+      "aimRegion": "shadow",
+      "crossIn": {
+        "x": -1.73,
+        "z": 16.96
+      },
+      "zoneIn": {
+        "bottom": 19.12,
+        "top": 37.88
+      },
+      "truth": "ball",
+      "edgeIn": 0.71,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.4621
+      },
+      "times": {
+        "release": 4.4421,
+        "catch": 4.8531
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.1,
+        "grade": "quick"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": {
+        "by": "catcher",
+        "overturned": false
+      },
+      "finalCall": "ball",
+      "outcome": "walk",
+      "correct": true,
+      "points": 2020
+    },
+    {
+      "i": 21,
+      "pitcher": "calloway",
+      "batter": "albright",
+      "side": "R",
+      "heightFt": 6.25,
+      "inning": "T1",
+      "outs": 1,
+      "count": "0-0",
+      "runners": "111",
+      "type": "FF",
+      "mph": 97.3,
+      "plateMph": 89.51,
+      "breakIn": {
+        "x": -6.45,
+        "z": 16.07
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": -4.33,
+        "z": 24.81
+      },
+      "zoneIn": {
+        "bottom": 20.25,
+        "top": 40.13
+      },
+      "truth": "strike",
+      "edgeIn": -5.62,
+      "region": "heart",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 0.5637
+      },
+      "times": {
+        "release": 3.5437,
+        "catch": 3.9467
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.9,
+        "grade": "pro"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": true,
+      "points": 135
+    },
+    {
+      "i": 22,
+      "pitcher": "calloway",
+      "batter": "albright",
+      "side": "R",
+      "heightFt": 6.25,
+      "inning": "T1",
+      "outs": 1,
+      "count": "0-1",
+      "runners": "111",
+      "type": "FF",
+      "mph": 98.22,
+      "plateMph": 90.36,
+      "breakIn": {
+        "x": -7.66,
+        "z": 13.41
+      },
+      "aimRegion": "shadow",
+      "crossIn": {
+        "x": -15.82,
+        "z": 15.9
+      },
+      "zoneIn": {
+        "bottom": 20.25,
+        "top": 40.13
+      },
+      "truth": "ball",
+      "edgeIn": 7.07,
+      "region": "chase",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.3633
+      },
+      "times": {
+        "release": 4.3433,
+        "catch": 4.7429
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": true,
+      "points": 132
+    },
+    {
+      "i": 23,
+      "pitcher": "calloway",
+      "batter": "albright",
+      "side": "R",
+      "heightFt": 6.25,
+      "inning": "T1",
+      "outs": 1,
+      "count": "1-1",
+      "runners": "111",
+      "type": "FF",
+      "mph": 96.71,
+      "plateMph": 88.98,
+      "breakIn": {
+        "x": -8.25,
+        "z": 16.85
+      },
+      "aimRegion": "shadow",
+      "crossIn": {
+        "x": 2.61,
+        "z": 19.64
+      },
+      "zoneIn": {
+        "bottom": 20.25,
+        "top": 40.13
+      },
+      "truth": "strike",
+      "edgeIn": -0.84,
+      "region": "shadow",
+      "delivery": {
+        "variant": "noStop",
+        "stopS": 0
+      },
+      "times": {
+        "release": 2.98,
+        "catch": 3.3859
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "noStop",
+        "calledAtS": null,
+        "correct": null,
+        "missed": true,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": true,
+      "points": 355
+    },
+    {
+      "i": 24,
+      "pitcher": "calloway",
+      "batter": "albright",
+      "side": "R",
+      "heightFt": 6.25,
+      "inning": "T1",
+      "outs": 1,
+      "count": "1-2",
+      "runners": "111",
+      "type": "FF",
+      "mph": 95.55,
+      "plateMph": 87.91,
+      "breakIn": {
+        "x": -9.36,
+        "z": 14.27
+      },
+      "aimRegion": "waste",
+      "crossIn": {
+        "x": 17.04,
+        "z": 8.4
+      },
+      "zoneIn": {
+        "bottom": 20.25,
+        "top": 40.13
+      },
+      "truth": "ball",
+      "edgeIn": 13.16,
+      "region": "chase",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.2047
+      },
+      "times": {
+        "release": 4.1847,
+        "catch": 4.5967
+      },
+      "call": null,
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": 1.95,
+        "correct": false,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": null,
+      "outcome": "balk",
+      "correct": null,
+      "points": -150
+    },
+    {
+      "i": 25,
+      "pitcher": "calloway",
+      "batter": "albright",
+      "side": "R",
+      "heightFt": 6.25,
+      "inning": "T1",
+      "outs": 1,
+      "count": "1-2",
+      "runners": "011",
+      "type": "FF",
+      "mph": 98.72,
+      "plateMph": 90.82,
+      "breakIn": {
+        "x": -9.94,
+        "z": 14.91
+      },
+      "aimRegion": "chase",
+      "crossIn": {
+        "x": 4.15,
+        "z": 20.28
+      },
+      "zoneIn": {
+        "bottom": 20.25,
+        "top": 40.13
+      },
+      "truth": "strike",
+      "edgeIn": -1.48,
+      "region": "shadow",
+      "delivery": {
+        "variant": "noStop",
+        "stopS": 0
+      },
+      "times": {
+        "release": 2.98,
+        "catch": 3.3777
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.9,
+        "grade": "pro"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "noStop",
+        "calledAtS": null,
+        "correct": null,
+        "missed": true,
+        "warning": false
+      },
+      "challenge": {
+        "by": "batter",
+        "overturned": false
+      },
+      "finalCall": "strike",
+      "outcome": "strikeout",
+      "correct": true,
+      "points": 730
+    },
+    {
+      "i": 26,
+      "pitcher": "calloway",
+      "batter": "reyes",
+      "side": "R",
+      "heightFt": 5.6,
+      "inning": "T1",
+      "outs": 2,
+      "count": "0-0",
+      "runners": "011",
+      "type": "FF",
+      "mph": 96.62,
+      "plateMph": 88.89,
+      "breakIn": {
+        "x": -7.49,
+        "z": 14.38
+      },
+      "aimRegion": "chase",
+      "crossIn": {
+        "x": -19.94,
+        "z": 21.09
+      },
+      "zoneIn": {
+        "bottom": 18.14,
+        "top": 35.95
+      },
+      "truth": "ball",
+      "edgeIn": 9.99,
+      "region": "waste",
+      "delivery": {
+        "variant": "noStop",
+        "stopS": 0
+      },
+      "times": {
+        "release": 2.98,
+        "catch": 3.3859
+      },
+      "call": null,
+      "timedOut": false,
+      "balk": {
+        "variant": "noStop",
+        "calledAtS": 2.45,
+        "correct": true,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": null,
+      "outcome": "balk",
+      "correct": null,
+      "points": 400
+    },
+    {
+      "i": 27,
+      "pitcher": "calloway",
+      "batter": "reyes",
+      "side": "R",
+      "heightFt": 5.6,
+      "inning": "T1",
+      "outs": 2,
+      "count": "0-0",
+      "runners": "001",
+      "type": "FF",
+      "mph": 97.31,
+      "plateMph": 89.53,
+      "breakIn": {
+        "x": -6.62,
+        "z": 14.48
+      },
+      "aimRegion": "heart",
+      "crossIn": {
+        "x": -2.9,
+        "z": 26.45
+      },
+      "zoneIn": {
+        "bottom": 18.14,
+        "top": 35.95
+      },
+      "truth": "strike",
+      "edgeIn": -7.05,
+      "region": "heart",
+      "delivery": {
+        "variant": "noStop",
+        "stopS": 0
+      },
+      "times": {
+        "release": 2.98,
+        "catch": 3.3829
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.5,
+        "grade": "clean"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "noStop",
+        "calledAtS": null,
+        "correct": null,
+        "missed": true,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": true,
+      "points": 10
+    },
+    {
+      "i": 28,
+      "pitcher": "calloway",
+      "batter": "reyes",
+      "side": "R",
+      "heightFt": 5.6,
+      "inning": "T1",
+      "outs": 2,
+      "count": "0-1",
+      "runners": "001",
+      "type": "SL",
+      "mph": 86.87,
+      "plateMph": 79.92,
+      "breakIn": {
+        "x": 7.08,
+        "z": -0.77
+      },
+      "aimRegion": "shadow",
+      "crossIn": {
+        "x": 10.11,
+        "z": 39.85
+      },
+      "zoneIn": {
+        "bottom": 18.14,
+        "top": 35.95
+      },
+      "truth": "ball",
+      "edgeIn": 2.77,
+      "region": "shadow",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.2258
+      },
+      "times": {
+        "release": 4.2058,
+        "catch": 4.6578
+      },
+      "call": {
+        "kind": "ball",
+        "afterCatchS": 0.1,
+        "grade": "quick"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "ball",
+      "outcome": "ball",
+      "correct": true,
+      "points": 183
+    },
+    {
+      "i": 29,
+      "pitcher": "calloway",
+      "batter": "reyes",
+      "side": "R",
+      "heightFt": 5.6,
+      "inning": "T1",
+      "outs": 2,
+      "count": "1-1",
+      "runners": "001",
+      "type": "SL",
+      "mph": 86.16,
+      "plateMph": 79.27,
+      "breakIn": {
+        "x": 3.17,
+        "z": 0.91
+      },
+      "aimRegion": "chase",
+      "crossIn": {
+        "x": 23.51,
+        "z": 33.6
+      },
+      "zoneIn": {
+        "bottom": 18.14,
+        "top": 35.95
+      },
+      "truth": "ball",
+      "edgeIn": 13.56,
+      "region": "waste",
+      "delivery": {
+        "variant": "legal",
+        "stopS": 1.5419
+      },
+      "times": {
+        "release": 4.5219,
+        "catch": 4.9783
+      },
+      "call": {
+        "kind": "strike",
+        "afterCatchS": 0.9,
+        "grade": "pro"
+      },
+      "timedOut": false,
+      "balk": {
+        "variant": "legal",
+        "calledAtS": null,
+        "correct": null,
+        "missed": false,
+        "warning": false
+      },
+      "challenge": null,
+      "finalCall": "strike",
+      "outcome": "strike",
+      "correct": false,
+      "points": -168
+    }
+  ],
+  "summary": {
+    "pitches": 30,
+    "called": 26,
+    "correct": 21,
+    "accuracy": 0.8076923076923077,
+    "byRegion": {
+      "heart": {
+        "called": 4,
+        "correct": 4
+      },
+      "shadow": {
+        "called": 15,
+        "correct": 13
+      },
+      "chase": {
+        "called": 4,
+        "correct": 2
+      },
+      "waste": {
+        "called": 3,
+        "correct": 2
+      }
+    },
+    "timing": {
+      "quick": 7,
+      "clean": 12,
+      "pro": 7,
+      "hesitant": 0,
+      "timeouts": 0
+    },
+    "balks": {
+      "occurred": 4,
+      "spotted": 1,
+      "missed": 3,
+      "phantom": 2,
+      "warnings": 1
+    },
+    "challenges": {
+      "total": 6,
+      "overturned": 3,
+      "stands": 3
+    },
+    "score": 6571,
+    "bestStreak": 4,
+    "secondsPerPitch": 6.72
+  }
+}

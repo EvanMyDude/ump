@@ -1,0 +1,7 @@
+dist
+test-results
+playwright-report
+coverage
+package-lock.json
+# The plan is hand-formatted markdown; keep Prettier off it.
+docs

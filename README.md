@@ -6,7 +6,9 @@ The design, research, and milestone plan live in [`docs/plans/2026-10-05-0759-fe
 
 ## Status
 
-Prototype in progress. M0 (foundations) and M1 (the core calling loop in graybox) are being built now; see the plan's Sequencing table.
+M0 (foundations) and M1 (the core calling loop in graybox) are built. The playable build deploys to GitHub Pages from `main`: <https://evanmydude.github.io/ump/>. Next is the U9 playtest gate; see the plan's Sequencing table.
+
+What M1 plays like: a 50-pitch session against three fictional pitchers. Batters only take in M1, so every pitch is yours to call. Runners reach first now and then so the no-stop balk can happen, Robo-Ump challenges can overturn you, and the Ump Card at the end grades you by zone region and timing.
 
 ## Run it
 
@@ -22,14 +24,30 @@ make help      # every target
 
 ## Controls
 
-| Action | Keyboard | Gamepad | Touch |
-|---|---|---|---|
-| Call a strike | `J` or `Right Arrow` | Right trigger | STRIKE button |
-| Call a ball | `F` or `Left Arrow` | Left trigger | BALL button |
-| Call a balk (runners on) | `Space` | A / Cross | BALK button |
-| Replay last pitch | `R` | Y / Triangle | Replay button |
-| Next pitch | `Enter` | Start | Tap |
-| Tuning panel | `` ` `` | | |
+| Action                                   | Keyboard             | Gamepad             | Touch         |
+| ---------------------------------------- | -------------------- | ------------------- | ------------- |
+| Call a strike                            | `J` or `Right Arrow` | Right trigger       | STRIKE button |
+| Call a ball                              | `F` or `Left Arrow`  | Left trigger        | BALL button   |
+| Call a balk (runners on)                 | `Space`              | A / Cross           | BALK button   |
+| Replay last pitch (press again to close) | `R`                  | Y / Triangle        | Replay button |
+| Change replay camera                     | `C`                  |                     |               |
+| Next pitch                               | `Enter`              | Start or B / Circle | Next button   |
+| Mute                                     | `M`                  |                     |               |
+| Download the pitch log                   | `L`                  |                     |               |
+| Tuning panel                             | `` ` ``              |                     |               |
+
+Wait for the glove to settle before calling: a call within 0.35 s of the catch is graded quick and costs points, and a call 0.75 to 1.15 s after the catch earns pro timing.
+
+## URL options
+
+| Option         | Effect                                                                        |
+| -------------- | ----------------------------------------------------------------------------- |
+| `?seed=abc`    | Replays the same session exactly, given the same calls                        |
+| `?autostart=1` | Skips the title screen                                                        |
+| `?pitches=10`  | Shortens the session                                                          |
+| `?debug=1`     | Opens the tuning panel (camera, overlays, game speed, seed, replay any pitch) |
+| `?touch=1`     | Shows the on-screen buttons on any device                                     |
+| `?quality=low` | Turns off shadows and antialiasing for slow devices                           |
 
 ## Project layout
 
