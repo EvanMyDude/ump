@@ -152,6 +152,7 @@ export class Game {
   private titleStart: ((mode: SessionMode) => void) | null = null;
   private replay: ReplayState | null = null;
   private frozen: { time: number; prev: number } | null = null;
+  private frozenDrawn = false;
   private reveal: { record: PitchRecord; at: number } | null = null;
   private pendingFeedback: { pitch: number; since: number } | null = null;
   private lastPhase = '';
@@ -259,8 +260,13 @@ export class Game {
     }
     if (this.replay) this.advanceReplay(dt);
     this.checkReveal();
-    this.present();
-    this.renderer.render(this.scene, this.activeCamera());
+    // A frozen test frame is static. Drawing it again every frame only starves screenshots under software
+    // WebGL, so it draws once and again only when a hook changes what it shows.
+    if (!this.frozen || !this.frozenDrawn) {
+      this.present();
+      this.renderer.render(this.scene, this.activeCamera());
+      this.frozenDrawn = this.frozen !== null;
+    }
 
     const current = this.session.current;
     if (current && this.clockRunning()) this.perf.frame(current.index, dt * 1000);
@@ -568,6 +574,7 @@ export class Game {
   }
 
   private resize(): void {
+    this.frozenDrawn = false;
     const w = Math.max(1, this.canvas.clientWidth);
     const h = Math.max(1, this.canvas.clientHeight);
     this.renderer.setSize(w, h, false);
@@ -674,11 +681,15 @@ export class Game {
         game.handleIntent({ intent, timeStamp: performance.now(), source: 'keyboard' }, game.simTime),
       freeze: (time: number, prev?: number) => {
         game.frozen = { time, prev: prev ?? time };
+        game.frozenDrawn = false;
       },
       unfreeze: () => {
         game.frozen = null;
       },
-      setOverlays: (o) => Object.assign(game.overlays, o),
+      setOverlays: (o) => {
+        Object.assign(game.overlays, o);
+        game.frozenDrawn = false;
+      },
       cameraMatrix: () => game.activeCamera().matrixWorld.toArray(),
       project: (p: XYZ) => {
         const v = toThree(p, game.projected).project(game.activeCamera());
@@ -696,6 +707,7 @@ export class Game {
       setDebugCamera: (view) => {
         if (!view) {
           game.debugCam = null;
+          game.frozenDrawn = false;
           return;
         }
         const cam = new THREE.PerspectiveCamera(view.fovDeg, game.ump.camera.aspect, 0.05, 3000);
@@ -703,6 +715,7 @@ export class Game {
         cam.lookAt(toThree(view.lookAt));
         cam.updateMatrixWorld(true);
         game.debugCam = cam;
+        game.frozenDrawn = false;
       },
     };
   }

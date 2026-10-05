@@ -27,6 +27,8 @@ test.describe('umpire camera and ball (U5)', () => {
   });
 
   test('the streak covers the projected crossing in a frozen crossing frame', async ({ page }) => {
+    // Software WebGL on CI runners is slow; a frozen frame draws once, and this leaves margin for the load.
+    test.setTimeout(60_000);
     await openGame(page, `seed=${SEED}&autostart=1&quality=low`);
     await page.evaluate(() => window.__ump!.pause());
     await hideOverlays(page);
@@ -55,7 +57,7 @@ test.describe('umpire camera and ball (U5)', () => {
     page,
   }) => {
     // Full quality (shadows, antialiasing) renders slowly in software WebGL, so this test gets more time.
-    test.setTimeout(240_000);
+    test.setTimeout(120_000);
     await openGame(page, `seed=${SEED}&autostart=1`);
     await page.evaluate(() => window.__ump!.pause());
     const p = await currentPitch(page);
